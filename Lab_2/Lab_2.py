@@ -155,6 +155,7 @@ if __name__ == "__main__":
     # Convert FA to regular grammar
     rg = fa_to_regular_grammar(fa)
     print("\nRegular Grammar:")
+
     print(rg)
 
     # Determine if FA is deterministic
