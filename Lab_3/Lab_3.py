@@ -13,7 +13,7 @@ class Lexer:
         return char.isdigit()
 
     def is_operator(self, char):
-        return char in ['+', '-', '*', '/']
+        return char in ['+', '-', '*', '=', '/']
 
     def next_token(self):
         while self.index < len(self.input):
@@ -36,11 +36,11 @@ class Lexer:
 
             if current_char == '(':
                 self.index += 1
-                return Token("LPAREN", current_char)
+                return Token("L_PAREN", current_char)
 
             if current_char == ')':
                 self.index += 1
-                return Token("RPAREN", current_char)
+                return Token("R_PAREN", current_char)
 
             raise ValueError(f"Unknown token: {current_char}")
 
