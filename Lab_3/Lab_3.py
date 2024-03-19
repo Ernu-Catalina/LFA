@@ -13,7 +13,7 @@ class Lexer:
         return char.isdigit()
 
     def is_operator(self, char):
-        return char in ['+', '-', '*', '=', '/']
+        return char in ['+', '-', '*', '=', '/', '^']
 
     def next_token(self):
         while self.index < len(self.input):
