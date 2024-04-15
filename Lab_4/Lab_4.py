@@ -3,31 +3,48 @@ import random
 
 def generate_string(regex):
     generated_string = ''
-    for char in regex:
-        if char == 'M':
-            generated_string += 'M' if random.choice([True, False]) else ''
-        elif char == 'N':
-            generated_string += 'N' if random.choice([True, False]) else ''
-        elif char == 'O':
-            generated_string += 'O' * 3
-        elif char == 'P':
-            generated_string += 'P' * 3
-        elif char == 'Q':
-            generated_string += 'Q' if random.choice([True, False]) else ''
-        elif char == 'R':
-            generated_string += 'R' if random.choice([True, False]) else ''
-        elif char in ['X', 'Y', 'Z']:
-            generated_string += random.choice(['X', 'Y', 'Z'])
-        elif char == '8':
-            generated_string += '8'
-        elif char in ['9', '0']:
-            generated_string += random.choice(['9', '0'])
-        elif char in ['H', 'i']:
-            generated_string += random.choice(['H', 'i'])
-        elif char in ['J', 'K']:
-            generated_string += random.choice(['J', 'K'])
-        elif char == 'L':
-            generated_string += 'L' * random.randint(0, 5)  # Limiting to 5 occurrences
+    i = 0
+    while i < len(regex):
+        print("Current state of generated string:", generated_string)
+        print("Current character in regex:", regex[i])
+        if regex[i] == '?':
+            if random.choice([True, False]):
+                print("Optional character, skipping back")
+                i -= 1
+            else:
+                print("Optional character, proceeding")
+            i += 1
+        elif regex[i] == '^':
+            power = int(regex[i + 1])
+            generated_string += generated_string[-1] * (power - 1)
+            print("Repeating last character", power, "times")
+            i += 2
+        elif regex[i] == '(':
+            options = ''
+            i += 1
+            while regex[i] != ')':
+                options += regex[i]
+                i += 1
+            options_list = options.split('|')
+            chosen_option = random.choice(options_list)
+            generated_string += chosen_option
+            print("Choosing from options:", options_list, "Chosen:", chosen_option)
+            i += 1
+        elif regex[i] == '*':
+            times = random.randint(0, 5)
+            generated_string += generated_string[-1] * times
+            print("Repeating last character", times, "times")
+            i += 1
+        elif regex[i] == '+':
+            times = random.randint(1, 5)
+            generated_string += generated_string[-1] * times
+            print("Repeating last character (at least once)", times, "times")
+            i += 1
+        else:
+            generated_string += regex[i]
+            print("Appending character to generated string:", regex[i])
+            i += 1
+
     return generated_string
 
 
