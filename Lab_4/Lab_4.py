@@ -1,5 +1,6 @@
 import random
 
+#S:bA, S:BC, A:a, A:aS, A:bAaAb, B:A, B:bS, B:aAa, C:ε, C:AB, D:AB
 
 def generate_string(regex):
     generated_string = ''
